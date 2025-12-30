@@ -60,7 +60,7 @@ services:
     restart: unless-stopped
 
   connect:
-    image: debezium/connect:2
+    image: debezium/connect:2.3
     environment:
       - BOOTSTRAP_SERVERS=kafka:9092
       - GROUP_ID=1
