@@ -34,3 +34,12 @@ You can run the app and a Postgres instance locally with Docker Compose:
 2. Bring up services: `docker compose up -d --build`
 
 The app runs migrations on start when `MIGRATE_ON_START=true` in `.env`.
+
+### Database web UI
+
+An Adminer service is included for quick DB access. After bringing up the stack you can open Adminer at:
+
+- http://localhost:${ADMINER_PORT:-8081}
+
+Use the credentials from `.env` (defaults are `postgres` / `postgres`) and connect to host `db` (the compose service name).
+
