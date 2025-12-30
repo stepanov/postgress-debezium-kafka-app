@@ -43,7 +43,7 @@ services:
       - db
 
   kafka:
-    image: bitnami/kafka:latest
+    image: bitnami/kafka:3.6.1
     environment:
       # Run Kafka in KRaft mode (no Zookeeper)
       - KAFKA_BROKER_ID=1
