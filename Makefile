@@ -23,3 +23,11 @@ compose-up:
 
 compose-down:
 	docker compose down -v
+
+# Run DB migrations using the local Go binary (reads DATABASE_URL from env or .env)
+migrate:
+	go run ./cmd/migrate
+
+# Run migrations inside the app container (uses compose services)
+compose-migrate:
+	docker compose run --rm app /app/migrate
