@@ -26,4 +26,11 @@ Scaffolded Go API with PostgreSQL CRUD using models and repositories.
 - `cmd/server` – HTTP server
 - `cmd/migrate` – simple SQL migration
 
-Enjoy!"}
+## Docker Compose
+
+You can run the app and a Postgres instance locally with Docker Compose:
+
+1. Copy `.env.example` to `.env` and edit if needed (DATABASE_URL points to the `db` service)
+2. Bring up services: `docker compose up -d --build`
+
+The app runs migrations on start when `MIGRATE_ON_START=true` in `.env`.

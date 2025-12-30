@@ -1,0 +1,11 @@
+# Build and VCS
+.git
+.gitignore
+*.md
+/tmp
+/bin
+/bin/*
+
+# Editor files
+*.swp
+*.swo

@@ -13,3 +13,13 @@ test:
 
 tidy:
 	go mod tidy
+
+# Docker helpers
+docker-build:
+	docker build -t ${APP_NAME}:local .
+
+compose-up:
+	docker compose up -d --build
+
+compose-down:
+	docker compose down -v
