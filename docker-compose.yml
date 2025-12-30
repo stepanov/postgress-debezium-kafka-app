@@ -17,20 +17,20 @@ services:
       timeout: 5s
       retries: 5
 
-  app:
-    build: .
-    depends_on:
-      db:
-        condition: service_healthy
-    env_file:
-      - .env
-    environment:
-      - DATABASE_URL
-      - PORT
-      - MIGRATE_ON_START
-    ports:
-      - "${PORT:-8080}:8080"
-    restart: on-failure
+  #app:
+  #  build: .
+  #  depends_on:
+  #    db:
+  #      condition: service_healthy
+  #  env_file:
+  #    - .env
+  #  environment:
+  #    - DATABASE_URL
+  #    - PORT
+  #    - MIGRATE_ON_START
+  #  ports:
+  #    - "${PORT:-8080}:8080"
+  #  restart: on-failure
 
   adminer:
     image: adminer:latest
