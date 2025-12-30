@@ -43,3 +43,26 @@ An Adminer service is included for quick DB access. After bringing up the stack 
 
 Use the credentials from `.env` (defaults are `postgres` / `postgres`) and connect to host `db` (the compose service name).
 
+### Debezium (change data capture)
+
+This repository includes a simple Debezium stack (Zookeeper, Kafka, Kafka Connect) to capture Postgres changes and stream them to Kafka.
+
+What's included
+
+- `zookeeper`, `kafka`, `connect` services in `docker-compose.yml`
+- DB init script that creates a `debezium` replication user and publication `dbz_publication`
+- An automatic connector registration script that registers a Postgres connector with Kafka Connect
+
+How to run
+
+1. Copy `.env.example` to `.env` and ensure `MIGRATE_ON_START=true` and DB vars are set.
+2. Start the stack: `docker compose up -d --build`
+3. After services are up, register connector (the `connect-init` service tries to register the connector automatically; you may re-run it using `docker compose run --rm connect-init`).
+4. Kafka Connect UI: http://localhost:8083
+5. Adminer: http://localhost:${ADMINER_PORT:-8081}
+
+Notes
+
+- Postgres is started with `wal_level=logical` and additional replication settings so Debezium can stream changes.
+- Connector config is in `docker/debezium/postgres-connector.json` and can be customized.
+
