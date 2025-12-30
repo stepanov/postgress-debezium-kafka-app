@@ -49,7 +49,7 @@ This repository includes a simple Debezium stack (Zookeeper, Kafka, Kafka Connec
 
 What's included
 
-- `zookeeper`, `kafka`, `connect` services in `docker-compose.yml`
+- `kafka` (KRaft mode) and `connect` services in `docker-compose.yml` (no Zookeeper)
 - DB init script that creates a `debezium` replication user and publication `dbz_publication`
 - An automatic connector registration script that registers a Postgres connector with Kafka Connect
 
