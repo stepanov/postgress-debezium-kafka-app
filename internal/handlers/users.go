@@ -1,3 +1,4 @@
+// Package handlers provides HTTP handlers for the API.
 package handlers
 
 import (
@@ -11,14 +12,17 @@ import (
 	"github.com/stepanov/postgress-debezium-kafka-app/internal/repository"
 )
 
+// UsersHandler handles user HTTP endpoints.
 type UsersHandler struct {
 	Repo repository.UserRepository
 }
 
+// NewUsersHandler creates a new UsersHandler.
 func NewUsersHandler(r repository.UserRepository) *UsersHandler {
 	return &UsersHandler{Repo: r}
 }
 
+// Register registers the users routes on the provided router.
 func (h *UsersHandler) Register(r chi.Router) {
 	r.Route("/users", func(r chi.Router) {
 		r.Post("/", h.create)

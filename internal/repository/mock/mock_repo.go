@@ -1,3 +1,4 @@
+// Package mockrepo provides an in-memory UserRepository implementation for tests.
 package mockrepo
 
 import (
@@ -19,10 +20,12 @@ type InMemoryUserRepo struct {
 	m  map[uuid.UUID]*model.User
 }
 
+// New returns a new InMemoryUserRepo.
 func New() *InMemoryUserRepo {
 	return &InMemoryUserRepo{m: make(map[uuid.UUID]*model.User)}
 }
 
+// Create stores a user in the repository.
 func (r *InMemoryUserRepo) Create(ctx context.Context, u *model.User) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
@@ -36,6 +39,7 @@ func (r *InMemoryUserRepo) Create(ctx context.Context, u *model.User) error {
 	return nil
 }
 
+// GetByID returns a user by its ID.
 func (r *InMemoryUserRepo) GetByID(ctx context.Context, id uuid.UUID) (*model.User, error) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
@@ -46,6 +50,7 @@ func (r *InMemoryUserRepo) GetByID(ctx context.Context, id uuid.UUID) (*model.Us
 	return u, nil
 }
 
+// Update replaces an existing user.
 func (r *InMemoryUserRepo) Update(ctx context.Context, u *model.User) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
@@ -56,6 +61,7 @@ func (r *InMemoryUserRepo) Update(ctx context.Context, u *model.User) error {
 	return nil
 }
 
+// Delete removes a user by ID.
 func (r *InMemoryUserRepo) Delete(ctx context.Context, id uuid.UUID) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
@@ -63,6 +69,7 @@ func (r *InMemoryUserRepo) Delete(ctx context.Context, id uuid.UUID) error {
 	return nil
 }
 
+// List returns all users.
 func (r *InMemoryUserRepo) List(ctx context.Context) ([]*model.User, error) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()

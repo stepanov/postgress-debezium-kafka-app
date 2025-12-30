@@ -14,6 +14,12 @@ test:
 tidy:
 	go mod tidy
 
+# Lint
+lint:
+	# Install with `curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(shell go env GOPATH)/bin v1.59.0`
+	golangci-lint run ./...
+
+
 # Docker helpers
 docker-build:
 	docker build -t ${APP_NAME}:local .

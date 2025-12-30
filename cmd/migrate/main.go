@@ -1,3 +1,4 @@
+// Command migrate applies database migrations.
 package main
 
 import (

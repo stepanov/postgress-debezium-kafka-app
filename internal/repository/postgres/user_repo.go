@@ -1,3 +1,4 @@
+// Package postgres provides a Postgres implementation of repository interfaces.
 package postgres
 
 import (
@@ -17,10 +18,12 @@ type UserRepo struct {
 	pool *pgxpool.Pool
 }
 
+// New returns a new Postgres-backed UserRepo.
 func New(pool *pgxpool.Pool) *UserRepo {
 	return &UserRepo{pool: pool}
 }
 
+// Create inserts a user into the database.
 func (r *UserRepo) Create(ctx context.Context, u *model.User) error {
 	if u.ID == uuid.Nil {
 		u.ID = uuid.New()
@@ -32,6 +35,7 @@ func (r *UserRepo) Create(ctx context.Context, u *model.User) error {
 	return err
 }
 
+// GetByID returns a user by ID from the database.
 func (r *UserRepo) GetByID(ctx context.Context, id uuid.UUID) (*model.User, error) {
 	u := &model.User{}
 	row := r.pool.QueryRow(ctx, `SELECT id, name, email, created_at FROM users WHERE id=$1`, id)
@@ -43,16 +47,19 @@ func (r *UserRepo) GetByID(ctx context.Context, id uuid.UUID) (*model.User, erro
 	return u, nil
 }
 
+// Update modifies an existing user.
 func (r *UserRepo) Update(ctx context.Context, u *model.User) error {
 	_, err := r.pool.Exec(ctx, `UPDATE users SET name=$1, email=$2 WHERE id=$3`, u.Name, u.Email, u.ID)
 	return err
 }
 
+// Delete removes a user by ID from the database.
 func (r *UserRepo) Delete(ctx context.Context, id uuid.UUID) error {
 	_, err := r.pool.Exec(ctx, `DELETE FROM users WHERE id=$1`, id)
 	return err
 }
 
+// List returns users ordered by creation time.
 func (r *UserRepo) List(ctx context.Context) ([]*model.User, error) {
 	rows, err := r.pool.Query(ctx, `SELECT id, name, email, created_at FROM users ORDER BY created_at DESC`)
 	if err != nil {

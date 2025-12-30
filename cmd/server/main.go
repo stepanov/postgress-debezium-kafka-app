@@ -1,3 +1,4 @@
+// Command server runs the HTTP server for the application.
 package main
 
 import (
