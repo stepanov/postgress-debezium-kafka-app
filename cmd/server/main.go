@@ -39,7 +39,7 @@ func main() {
 	h := handlers.NewUsersHandler(repo)
 
 	r := chi.NewRouter()
-	r.Mount("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	r.Mount("/", http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte("ok"))
 	}))

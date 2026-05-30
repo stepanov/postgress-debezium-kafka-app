@@ -26,7 +26,7 @@ func New() *InMemoryUserRepo {
 }
 
 // Create stores a user in the repository.
-func (r *InMemoryUserRepo) Create(ctx context.Context, u *model.User) error {
+func (r *InMemoryUserRepo) Create(_ context.Context, u *model.User) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	if u.ID == uuid.Nil {
@@ -40,7 +40,7 @@ func (r *InMemoryUserRepo) Create(ctx context.Context, u *model.User) error {
 }
 
 // GetByID returns a user by its ID.
-func (r *InMemoryUserRepo) GetByID(ctx context.Context, id uuid.UUID) (*model.User, error) {
+func (r *InMemoryUserRepo) GetByID(_ context.Context, id uuid.UUID) (*model.User, error) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 	u, ok := r.m[id]
@@ -51,7 +51,7 @@ func (r *InMemoryUserRepo) GetByID(ctx context.Context, id uuid.UUID) (*model.Us
 }
 
 // Update replaces an existing user.
-func (r *InMemoryUserRepo) Update(ctx context.Context, u *model.User) error {
+func (r *InMemoryUserRepo) Update(_ context.Context, u *model.User) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	if _, ok := r.m[u.ID]; !ok {
@@ -62,7 +62,7 @@ func (r *InMemoryUserRepo) Update(ctx context.Context, u *model.User) error {
 }
 
 // Delete removes a user by ID.
-func (r *InMemoryUserRepo) Delete(ctx context.Context, id uuid.UUID) error {
+func (r *InMemoryUserRepo) Delete(_ context.Context, id uuid.UUID) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	delete(r.m, id)
@@ -70,7 +70,7 @@ func (r *InMemoryUserRepo) Delete(ctx context.Context, id uuid.UUID) error {
 }
 
 // List returns all users.
-func (r *InMemoryUserRepo) List(ctx context.Context) ([]*model.User, error) {
+func (r *InMemoryUserRepo) List(_ context.Context) ([]*model.User, error) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 	out := make([]*model.User, 0, len(r.m))
